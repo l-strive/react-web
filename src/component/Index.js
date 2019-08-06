@@ -30,12 +30,11 @@ class TemperatureInput extends React.Component{
 	constructor(props){
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
-		this.state = {
-			temperature:''
-		}
+		
 	}
 	handleChange(e){
-		this.setState({temperature:e.target.value});
+		// this.setState({temperature:e.target.value});
+		this.props.onTemperatureChange(e.target.value);
 	}
 	render(){
 		const temperature = this.props.temperature;
@@ -44,17 +43,52 @@ class TemperatureInput extends React.Component{
 			<fieldset>
 				<legend>请输入{scaleNames[scale]}</legend>
 				<input value={temperature} onChange={this.handleChange} />
-				<BoilingVerdict celsius={parseFloat(temperature)}></BoilingVerdict>
+				
 			</fieldset>
 		);
 	}
 }
 class Calculator extends React.Component{
+	constructor(props){
+		super(props);
+		this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
+    	this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
+		this.state = {
+			temperature : '',
+			scale : 'c'
+		}
+	}
+	handleCelsiusChange(temperature){
+		this.setState({
+			scale:'c',
+			temperature//temperature与temperature:temperature效果相同？？
+		});
+	}
+	handleFahrenheitChange(temperature){
+		this.setState({
+			scale:'f',
+			temperature//temperature与temperature:temperature效果相同？？
+		});
+	}
 	render(){
+		const scale = this.state.scale;
+		const temperature = this.state.temperature;
+		const celsius = scale ==='f'?tryConvert(temperature,toCelsius):temperature;
+		const fahrenheit = scale ==='c'?tryConvert(temperature,toFahrenheit):temperature;
 		return(
 			<div>
-				<TemperatureInput scale="c"></TemperatureInput>
-				<TemperatureInput scale="f"></TemperatureInput>
+				<TemperatureInput
+				 scale="c"
+				 temperature={celsius}
+				 onTemperatureChange={this.handleCelsiusChange}
+				 ></TemperatureInput>
+				<TemperatureInput
+				 scale="f"
+				 temperature={fahrenheit}
+				 onTemperatureChange={this.handleFahrenheitChange}
+				 ></TemperatureInput>
+				 <BoilingVerdict celsius={parseFloat(celsius)}
+				 ></BoilingVerdict>
 			</div>
 		)
 	}
