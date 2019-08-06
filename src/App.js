@@ -3,7 +3,7 @@ import 'antd-mobile/dist/antd-mobile.css';
 import './App.css';
 
 import { TabBar } from 'antd-mobile';
-import Index from './component/Index';
+import Index from './page/Index';
 
 class TabBarExample extends React.Component {
   constructor(props) {

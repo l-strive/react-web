@@ -48,7 +48,7 @@ class TemperatureInput extends React.Component{
 		);
 	}
 }
-class Calculator extends React.Component{
+class TempCalculator extends React.Component{
 	constructor(props){
 		super(props);
 		this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
@@ -98,7 +98,7 @@ class Index extends React.Component{
 	render(){
 		return(
 			<div className="indexceshi">
-				<Calculator></Calculator>
+				<TempCalculator></TempCalculator>
 			</div>
 		)
 	}
